@@ -22,7 +22,7 @@ public class PrintCalendar {
 	
 	public static void printMonth(int year, int month){
 		printMonthTitle(year, month);
-		//printMonthBody(year, month);
+		printMonthBody(year, month);
 	}
 	
 	public static void printMonthBody(int year, int month){
