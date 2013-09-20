@@ -26,10 +26,9 @@ public class PrintCalendar {
 	}
 	
 	public static void printMonthBody(int year, int month){
-        //       September 2013          
-		// ---------------------------
-		// Sun Mon Tue Wed Thu Fri Sat  
-		// --- --- --- --- --- --- ---
+
+		System.out.print(" Sun Mon Tue Wed Thu Fri Sat \n");
+		System.out.print(" --- --- --- --- --- --- --- \n");		
 		//   1   2   3   4   5   6   7
 		//   8   9  10  11  12  13  14
 		//  15  16  17  18  19  20  21
@@ -40,14 +39,14 @@ public class PrintCalendar {
     public static void printMonthTitle(int year, int month){
 		
 		String monthName = getMonthName(month);
-		int prepad = (29 - monthName.length())/2;
-		int postPad = (29 - monthName.length() - prepad);
+		int prepad = (24 - monthName.length())/2;
+		int postPad = (24 - monthName.length() - prepad);
 		System.out.println(dashes);
 		
 		for(int i = 0; i < prepad; i++) {
 			   System.out.print(" ");
 			}
-		System.out.print(monthName);
+		System.out.print(monthName + " " + year);
 		
 		for(int i = 0; i < postPad; i++) {
 			   System.out.print(" ");
