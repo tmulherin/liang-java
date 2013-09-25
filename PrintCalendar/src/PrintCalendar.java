@@ -34,6 +34,9 @@ public class PrintCalendar {
 		//  15  16  17  18  19  20  21
 		//  22  23  24  25  26  27  28
 		//  29  30
+		
+		int startDay = getStartDay(year, month);
+		System.out.print("First Day of year = " + startDay);
 	}
 	
     public static void printMonthTitle(int year, int month){
@@ -73,7 +76,9 @@ public class PrintCalendar {
 	}
 	
 	public static int getStartDay(int year, int month){
-		return 1;
+		int days = getTotalNumberOfDays(year, month);
+		// int firstDayInMonth = 1;
+		return days;
 	}
 	
 	public static int getNumberOfDaysInMonth(int year, int month){
@@ -89,7 +94,29 @@ public class PrintCalendar {
 	}
 	
 	public static int getTotalNumberOfDays(int year, int month){
-		return 100;
+        //int days = 0;
+        int dayPos = 0;
+        
+		int[] firstDayYear0 = {7, 1, 2, 3, 5, 6, 7, 1, 3, 4, 5, 6};
+		
+		int yearMod84 = year % 84;
+        dayPos = yearMod84 % 12;
+		int yearsOffset = (int)(yearMod84 / 12);
+		
+		if (dayPos == 0){
+				dayPos = 12;
+				yearsOffset --;
+				if(yearsOffset == -1)
+					yearsOffset = 6;
+			}
+	
+
+        int firstDay = firstDayYear0[dayPos - 1] + yearsOffset;
+        if (firstDay > 7)
+        	firstDay = firstDay - 7;
+        
+        return firstDay;
+		
 	}
 	
 	public static boolean isLeapYear(int year){
