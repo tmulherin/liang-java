@@ -27,6 +27,13 @@ public class PrintCalendar {
 	
 	public static void printMonthBody(int year, int month){
 
+		String daypad = "    ";
+		String day = "";
+		int dayCount = 0;
+		int startDay = getFirstDayInMonth(year, month);
+		int days = getNumberOfDaysInMonth(year, month);
+		String monthOut = "";
+
 		System.out.print(" Sun Mon Tue Wed Thu Fri Sat \n");
 		System.out.print(" --- --- --- --- --- --- --- \n");	
 		// -----------------------------
@@ -39,27 +46,37 @@ public class PrintCalendar {
 		//  15  16  17  18  19  20  21
 		//  22  23  24  25  26  27  28
 		//  29  30  31
+		//System.out.print("startDay = " + startDay + "\n");
 		
-		int startDay = getFirstDayInMonth(year, month);
-		System.out.print("The first day of " + getMonthName(month) + ", " + year + " is " + getDayName(startDay) + ".");
+		for(int i = (1 - startDay); i < (days + 1); i++){
+			if(i > 0){
+				day = daypad + i;
+				monthOut += day.substring(day.length() - 4);
+			}
+			else
+				monthOut += daypad;
+			
+			dayCount++;
+			if(dayCount % 7 == 0)
+				monthOut += "\n";
+		}
+		
+		System.out.print(monthOut + "\n" + dashes);
+		
+		//System.out.print("The first day of " + getMonthName(month) + ", " + year + " is " + getDayName(startDay) + ".");*/
 	}
 	
     public static void printMonthTitle(int year, int month){
 		
 		String monthName = getMonthName(month);
-		int prepad = (24 - monthName.length())/2;
-		int postPad = (24 - monthName.length() - prepad);
+		int pad = (24 - monthName.length())/2;
+
 		System.out.println(dashes);
-		
-		for(int i = 0; i < prepad; i++) {
+		for(int i = 0; i < pad; i++) {
 			   System.out.print(" ");
 			}
 		System.out.print(monthName + " " + year);
-		
-		for(int i = 0; i < postPad; i++) {
-			   System.out.print(" ");
-			}
-		System.out.print("\n");
+    	System.out.print("\n");
 		System.out.println(dashes);
 	}
 	
@@ -90,13 +107,13 @@ public class PrintCalendar {
         int firstDayOfYear = getFirstDayInYear(year, month);
         int days = 0;
         
-        for(int i=0;i<month;i++){
+        for(int i=0; i < month; i++){
         	days += getNumberOfDaysInMonth(year, i);
         }
     
         int firstDayOfMonth = firstDayOfYear + (days % 7);
 
-        if(firstDayOfMonth > 7)
+        if(firstDayOfMonth > 6)
         	firstDayOfMonth -= 7;
 		
         return firstDayOfMonth;
@@ -107,26 +124,26 @@ public class PrintCalendar {
 		switch (month){
 			case 1: case 3: case 5: case 7: case 8: case 10: case 12: days = 31; break;
 			case 4: case 6: case 9: case 11: days = 30; break;
-			case 2: if(isLeapYear(year)){days = 29;}
-		            else{days = 28;}  
+			case 2: if(isLeapYear(year))
+                        days = 29;
+		            else
+                        days = 28;  
 		}
 		
 		return days;
 	}
 	
 	public static int getFirstDayInYear(int year, int month){
-
-        int dayPos = 0;
         
 		int[] firstDayYear0 = {7, 1, 2, 3, 5, 6, 7, 1, 3, 4, 5, 6};
 		
 		int yearMod84 = year % 84;
-        dayPos = yearMod84 % 12;
+        int dayPos = yearMod84 % 12;
 		int yearsOffset = (int)(yearMod84 / 12);
 		
 		if (dayPos == 0){
 				dayPos = 12;
-				yearsOffset --;
+				yearsOffset--;
 				if(yearsOffset == -1)
 					yearsOffset = 6;
 			}
